@@ -6,11 +6,11 @@ Provides tools to help set Go structures from CSV lines / files and vice versa.
 
 To install assertions run:
 
-    $ go get github.com/rzajac/csvutil
+    $ go get github.com/rzajac/goassert/assert
 
-## Documentation
+To install csvutil:
 
-* http://godoc.org/github.com/rzajac/csvutil
+    $ go get github.com/Telling/csvutil
 
 ### Set fields from CSV
 
@@ -19,7 +19,7 @@ Here we are setting _person_ fields from CSV. The columns in CSV line must be in
 ```go
 
 import (
-	"github.com/rzajac/csvutil"
+	"github.com/Telling/csvutil"
 )
 
 var testCsvLines = []string{"Tony|23|123.456|Y", "John|34|234.567|N|"}
