@@ -186,8 +186,9 @@ func (r *Reader) colByName(colName string) string {
 }
 
 // ToCsv takes a struct and returns CSV line with data delimited by delim and
-// true, false values translated to boolTrue, boolFalse respectively.
-func ToCsv(v interface{}, delim, boolTrue, boolFalse string) string {
+// true, false values translated to boolTrue, boolFalse respectively. Fields
+// can be "quoted" or unquoted with quote.
+func ToCsv(v interface{}, delim, boolTrue, boolFalse string, quote bool) string {
 	var csvLine []string
 	var strValue string
 	var structField reflect.StructField
@@ -208,14 +209,18 @@ func ToCsv(v interface{}, delim, boolTrue, boolFalse string) string {
 		field = t.Field(i)
 
 		if structField.Anonymous {
-			strValue = ToCsv(field.Interface(), delim, boolTrue, boolFalse)
+			strValue = ToCsv(field.Interface(), delim, boolTrue, boolFalse, quote)
 			csvLine = append(csvLine, strValue)
 			continue
 		}
 
 		if !skip(structField.Tag) && field.CanInterface() {
 			strValue = getValue(field, boolTrue, boolFalse)
-			csvLine = append(csvLine, strValue)
+			if quote == true {
+				csvLine = append(csvLine, "\""+strValue+"\"")
+			} else {
+				csvLine = append(csvLine, strValue)
+			}
 		}
 	}
 
