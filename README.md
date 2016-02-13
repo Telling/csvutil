@@ -108,8 +108,11 @@ c := csvutil.NewCsvUtil(sr).Trim(" *") // Trim spaces and asterisks from beginni
 ```go
 p := &person{"Tom", 45, "aaa", 111.22, true}
 
-csvLine, err := csvutil.ToCsv(p, "|", "YY", "NN")
+csvLine, err := csvutil.ToCsv(p, "|", "YY", "NN", false)
 fmt.Println(csvLine) // Prints: Tom|45|111.22|YY
+
+csvLine, err := csvutil.ToCsv(p, "|", "YY", "NN", true)
+fmt.Println(csvLine) // Prints: "Tom"|"45"|"111.22"|"YY"
 ```
 
 ### Getting last CSV line that have been read form the file
