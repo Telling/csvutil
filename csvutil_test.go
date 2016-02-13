@@ -203,8 +203,17 @@ func Test_ToCsv(t *testing.T) {
 	p := &person{"Tom", 45, 111.22, "aaa", true}
 
 	// Start test
-	gotCsv := ToCsv(p, "|", "YY", "NN")
+	gotCsv := ToCsv(p, "|", "YY", "NN", false)
 	assert.Equal(t, "Tom|45|111.22|YY", gotCsv)
+}
+
+func Test_ToCsvQoute(t *testing.T) {
+	// Prepare test
+	p := &person{"Tom", 45, 111.22, "aaa", true}
+
+	// Start test
+	gotCsv := ToCsv(p, "|", "YY", "NN", true)
+	assert.Equal(t, "\"Tom\"|\"45\"|\"111.22\"|\"YY\"", gotCsv)
 }
 
 func Test_pickingColumns(t *testing.T) {
@@ -266,7 +275,18 @@ func Test_embededToCsv(t *testing.T) {
 	b.Field3 = "F3"
 
 	// Start test
-	assert.Equal(t, "F1,F2,F3", ToCsv(b, ",", "Y", "N"))
+	assert.Equal(t, "F1,F2,F3", ToCsv(b, ",", "Y", "N", false))
+}
+
+func Test_embededToCsvQuote(t *testing.T) {
+	// Prepare test
+	b := new(B)
+	b.Field1 = "F1"
+	b.Field2 = "F2"
+	b.Field3 = "F3"
+
+	// Start test
+	assert.Equal(t, "\"F1\",\"F2\",\"F3\"", ToCsv(b, ",", "Y", "N", true))
 }
 
 // func Test_setEmbeded(t *testing.T) {
