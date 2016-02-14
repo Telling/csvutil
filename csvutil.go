@@ -216,7 +216,7 @@ func ToCsv(v interface{}, delim, boolTrue, boolFalse string, quote bool) string 
 
 		if !skip(structField.Tag) && field.CanInterface() {
 			strValue = getValue(field, boolTrue, boolFalse)
-			if quote == true {
+			if quote {
 				csvLine = append(csvLine, "\""+strValue+"\"")
 			} else {
 				csvLine = append(csvLine, strValue)
